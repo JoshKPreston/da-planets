@@ -1,9 +1,9 @@
 import BaseController from "../utils/BaseController";
-import { galaxyService } from "../services/GalaxyService";
+import { starService } from "../services/StarService";
 
-export class GalaxyController extends BaseController {
+export class StarController extends BaseController {
   constructor() {
-    super("api/galaxy")
+    super("api/star")
     this.router
       .get("", this.getAll)
       .get("/:id", this.getOne)
@@ -19,7 +19,7 @@ export class GalaxyController extends BaseController {
 
   async getOne(req, res, next) {
     try {
-      res.send(await galaxyService.getOne(req.params.id));
+      res.send(await starService.getOne(req.params.id));
     } catch (error) { next(error) }
   }
 
@@ -33,14 +33,14 @@ export class GalaxyController extends BaseController {
     try {
       let variableName = req.params.variableName
       req.body.user = variableName
-      return res.send(await galaxyService.edit(req.params.id, req.body))
+      return res.send(await starService.edit(req.params.id, req.body))
     } catch (error) { next(error) }
   }
 
   async delete(req, res, next) {
     try {
       let variableName = req.params.variableName
-      return res.send(await galaxyService.delete(req.params.id, variableName))
+      return res.send(await starService.delete(req.params.id, variableName))
     } catch (error) { next(error) }
   }
 
