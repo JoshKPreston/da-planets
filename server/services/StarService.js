@@ -3,11 +3,15 @@ import { BadRequest } from "../utils/Errors";
 
 class StarService {
   async getAll(query = {}) {
-    let star = await dbContext.Star.find(query);
+    let star = await dbContext.Star.find(query)
+      .populate('galaxy')
+      .populate('planet')
     return star;
   }
   async getOne(id) {
-    let star = await dbContext.Star.findById(id);
+    let star = await dbContext.Star.findById(id)
+      .populate('galaxy')
+      .populate('planet')
     if (!star) { throw new BadRequest("Invalid Id"); }
     return star;
   }
@@ -22,17 +26,16 @@ class StarService {
     if (!ifIDExists) {
       throw new BadRequest("This does not exist or you are not the owner");
     }
-    // return await dbContext.COLLECTIONNAME.findByIdAndUpdate(id, body)
     return await dbContext.Star.findByIdAndUpdate(id, body)
   }
 
-  	async delete(id, body) {
-      let ifIDExists = await dbContext.Star.findById(id)
-      // @ts-ignore
-      if(!ifIDExists){ throw new BadRequest("This does not exist or you are not the owner"); }
-      await dbContext.Star.findByIdAndDelete(id)
-      return "Succesfully Deleted"
-    }
+  async delete(id, body) {
+    let ifIDExists = await dbContext.Star.findById(id)
+    // @ts-ignore
+    if (!ifIDExists) { throw new BadRequest("This does not exist or you are not the owner"); }
+    await dbContext.Star.findByIdAndDelete(id)
+    return "Succesfully Deleted"
+  }
 
 }
 

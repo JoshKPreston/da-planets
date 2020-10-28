@@ -3,11 +3,13 @@ import { BadRequest } from "../utils/Errors";
 
 class MoonService {
   async getAll(query = {}) {
-    let moon = await dbContext.Moon.find(query);
+    let moon = await dbContext.Moon.find(query)
+      .populate('planet')
     return moon;
   }
   async getOne(id) {
-    let moon = await dbContext.Moon.findById(id);
+    let moon = await dbContext.Moon.findById(id)
+      .populate('planet')
     if (!moon) { throw new BadRequest("Invalid Id"); }
     return moon;
   }
@@ -22,17 +24,16 @@ class MoonService {
     if (!ifIDExists) {
       throw new BadRequest("This does not exist or you are not the owner");
     }
-    // return await dbContext.COLLECTIONNAME.findByIdAndUpdate(id, body)
     return await dbContext.Moon.findByIdAndUpdate(id, body)
   }
 
-  	async delete(id, body) {
-      let ifIDExists = await dbContext.Moon.findById(id)
-      // @ts-ignore
-      if(!ifIDExists){ throw new BadRequest("This does not exist or you are not the owner"); }
-      await dbContext.Moon.findByIdAndDelete(id)
-      return "Succesfully Deleted"
-    }
+  async delete(id, body) {
+    let ifIDExists = await dbContext.Moon.findById(id)
+    // @ts-ignore
+    if (!ifIDExists) { throw new BadRequest("This does not exist or you are not the owner"); }
+    await dbContext.Moon.findByIdAndDelete(id)
+    return "Succesfully Deleted"
+  }
 
 }
 

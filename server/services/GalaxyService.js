@@ -3,12 +3,14 @@ import { BadRequest } from "../utils/Errors";
 
 class GalaxyService {
   async getAll(query = {}) {
-    let galaxy = await dbContext.Galaxy.find(query);
+    let galaxy = await dbContext.Galaxy.find(query)
+      .populate('star')
     return galaxy;
   }
   async getOne(id) {
-    let galaxy = await dbContext.Galaxy.findById(id);
-    if (!galaxy) { throw new BadRequest("Invalid Id"); }
+    let galaxy = await dbContext.Galaxy.findById(id)
+      .populate('star')
+    if (!galaxy) { throw new BadRequest("Invalid Id") }
     return galaxy;
   }
 
@@ -22,17 +24,16 @@ class GalaxyService {
     if (!ifIDExists) {
       throw new BadRequest("This does not exist or you are not the owner");
     }
-    // return await dbContext.COLLECTIONNAME.findByIdAndUpdate(id, body)
     return await dbContext.Galaxy.findByIdAndUpdate(id, body)
   }
 
-  	async delete(id, body) {
-      let ifIDExists = await dbContext.Galaxy.findById(id)
-      // @ts-ignore
-      if(!ifIDExists){ throw new BadRequest("This does not exist or you are not the owner"); }
-      await dbContext.Galaxy.findByIdAndDelete(id)
-      return "Succesfully Deleted"
-    }
+  async delete(id, body) {
+    let ifIDExists = await dbContext.Galaxy.findById(id)
+    // @ts-ignore
+    if (!ifIDExists) { throw new BadRequest("This does not exist or you are not the owner"); }
+    await dbContext.Galaxy.findByIdAndDelete(id)
+    return "Succesfully Deleted"
+  }
 
 }
 
