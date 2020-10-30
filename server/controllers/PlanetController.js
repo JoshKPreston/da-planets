@@ -13,7 +13,7 @@ export class PlanetController extends BaseController {
   }
   async getAll(req, res, next) {
     try {
-      return res.send(await req.body)
+      res.send(await planetService.getAll(req.body))
     } catch (error) { next(error) }
   }
 
@@ -25,7 +25,7 @@ export class PlanetController extends BaseController {
 
   async create(req, res, next) {
     try {
-      return res.send(await req.body)
+      res.send(await planetService.create(req.body))
     } catch (error) { next(error) }
   }
 
@@ -33,14 +33,14 @@ export class PlanetController extends BaseController {
     try {
       let variableName = req.params.variableName
       req.body.user = variableName
-      return res.send(await planetService.edit(req.params.id, req.body))
+      res.send(await planetService.edit(req.params.id, req.body))
     } catch (error) { next(error) }
   }
 
   async delete(req, res, next) {
     try {
       let variableName = req.params.variableName
-      return res.send(await planetService.delete(req.params.id, variableName))
+      res.send(await planetService.delete(req.params.id, variableName))
     } catch (error) { next(error) }
   }
 

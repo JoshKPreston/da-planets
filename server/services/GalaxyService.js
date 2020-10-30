@@ -3,10 +3,10 @@ import { BadRequest } from "../utils/Errors";
 
 class GalaxyService {
   async getAll(query = {}) {
-    let galaxy = await dbContext.Galaxy.find(query)
-      .populate('star')
-    return galaxy;
+    return await dbContext.Galaxy.find(query)
+    .populate('star')
   }
+
   async getOne(id) {
     let galaxy = await dbContext.Galaxy.findById(id)
       .populate('star')

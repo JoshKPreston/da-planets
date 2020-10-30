@@ -5,7 +5,7 @@ const ObjectId = Schema.Types.ObjectId
 const Moon = new Schema(
   {
     title: { type: String, required: true },
-    planet: {type: ObjectId, ref: "Planet" }
+    planet: { type: ObjectId, ref: "planet"}
   },
   { timestamps: true, toJSON: { virtuals: true } }
 );

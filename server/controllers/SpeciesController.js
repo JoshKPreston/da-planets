@@ -13,7 +13,7 @@ export class SpeciesController extends BaseController {
   }
   async getAll(req, res, next) {
     try {
-      return res.send(await req.body)
+      res.send(await speciesService.getAll(req.body))
     } catch (error) { next(error) }
   }
 
@@ -25,7 +25,7 @@ export class SpeciesController extends BaseController {
 
   async create(req, res, next) {
     try {
-      return res.send(await req.body)
+      res.send(await speciesService.create(req.body))
     } catch (error) { next(error) }
   }
 
@@ -33,14 +33,14 @@ export class SpeciesController extends BaseController {
     try {
       let variableName = req.params.variableName
       req.body.user = variableName
-      return res.send(await speciesService.edit(req.params.id, req.body))
+      res.send(await speciesService.edit(req.params.id, req.body))
     } catch (error) { next(error) }
   }
 
   async delete(req, res, next) {
     try {
       let variableName = req.params.variableName
-      return res.send(await speciesService.delete(req.params.id, variableName))
+      res.send(await speciesService.delete(req.params.id, variableName))
     } catch (error) { next(error) }
   }
 

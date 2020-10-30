@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId
 
-const Planet = new Schema(
+const PlanetSpecies = new Schema(
   {
-    title: { type: String, required: true },
-    star: { type: ObjectId, ref: "star" }
+    planet: { type: ObjectId, ref: "planet" },
+    species: { type: ObjectId, ref: "species" }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 );
 
-export default Planet;
+export default PlanetSpecies;

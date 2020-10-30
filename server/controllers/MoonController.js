@@ -13,19 +13,19 @@ export class MoonController extends BaseController {
   }
   async getAll(req, res, next) {
     try {
-      return res.send(await req.body)
+      res.send(await moonService.getAll(req.body))
     } catch (error) { next(error) }
   }
 
   async getOne(req, res, next) {
     try {
-      res.send(await moonService.getOne(req.params.id));
+      res.send(await moonService.getOne(req.params.id))
     } catch (error) { next(error) }
   }
 
   async create(req, res, next) {
     try {
-      return res.send(await req.body)
+      res.send(await moonService.create(req.body))
     } catch (error) { next(error) }
   }
 
@@ -33,14 +33,14 @@ export class MoonController extends BaseController {
     try {
       let variableName = req.params.variableName
       req.body.user = variableName
-      return res.send(await moonService.edit(req.params.id, req.body))
+      res.send(await moonService.edit(req.params.id, req.body))
     } catch (error) { next(error) }
   }
 
   async delete(req, res, next) {
     try {
       let variableName = req.params.variableName
-      return res.send(await moonService.delete(req.params.id, variableName))
+      res.send(await moonService.delete(req.params.id, variableName))
     } catch (error) { next(error) }
   }
 

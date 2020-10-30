@@ -13,34 +13,34 @@ export class GalaxyController extends BaseController {
   }
   async getAll(req, res, next) {
     try {
-      return res.send(await req.body)
+      res.send(await galaxyService.getAll(req.body))
     } catch (error) { next(error) }
   }
 
   async getOne(req, res, next) {
     try {
-      res.send(await galaxyService.getOne(req.params.id));
+      res.send(await galaxyService.getOne(req.params.id))
     } catch (error) { next(error) }
   }
 
   async create(req, res, next) {
     try {
-      return res.send(await req.body)
+      res.send(await galaxyService.create(req.body))
     } catch (error) { next(error) }
   }
 
   async edit(req, res, next) {
     try {
-      let variableName = req.params.variableName
-      req.body.user = variableName
-      return res.send(await galaxyService.edit(req.params.id, req.body))
+      let galaxy = req.params.galaxy
+      req.body.galaxy = galaxy
+      res.send(await galaxyService.edit(req.params.id, req.body))
     } catch (error) { next(error) }
   }
 
   async delete(req, res, next) {
     try {
-      let variableName = req.params.variableName
-      return res.send(await galaxyService.delete(req.params.id, variableName))
+      let galaxy = req.params.galaxy
+      res.send(await galaxyService.delete(req.params.id, galaxy))
     } catch (error) { next(error) }
   }
 
